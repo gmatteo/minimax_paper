@@ -1,0 +1,23 @@
+ecut 40.0          # Maximal kinetic energy cut-off, in Hartree
+timopt -1
+
+# Definition of the k-point grid
+ngkpt   8 8 8
+nshiftk 1
+shiftk  0.0 0.0 0.0
+nstep   50
+diemac  12.0
+istwfk *1
+
+# Data common to the three different datasets
+
+# Definition of the unit cell
+ acell 3*4.350 Angstrom
+ rprim   0 .5 .5  .5 0 .5  .5 .5 0
+ natom   2
+ ntypat  2
+ typat  1 2
+ xred   0.000  0.000  0.000
+        0.250  0.250  0.250
+ znucl 6.0 14.0
+

@@ -1,0 +1,28 @@
+# Crystalline silicon
+# Calculation of the GW corrections
+# Dataset 1: ground state calculation to get the density
+# Dataset 2: NSCF run to produce the WFK file for 10 k-points in IBZ
+
+indata_prefix = "indata_gs"
+outdata_prefix = "outdata_gs"
+
+pseudos "C.psp8, Si.psp8"
+include "globals"
+
+ndtset  2
+
+############
+# Dataset 1
+############
+# SCF-GS run
+fband1  2
+tolvrs1 1.0e-8
+paral_kgb1 1
+autoparal1 1
+
+############
+# Dataset 3
+############
+optdriver2  6        # GWR
+gwr_task2 "HDIAGO_FULL"
+getden2 -1

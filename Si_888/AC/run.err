@@ -1,0 +1,49 @@
+
+Program received signal SIGBUS: Access to an undefined portion of a memory object.
+
+Backtrace for this error:
+
+Program received signal SIGBUS: Access to an undefined portion of a memory object.
+
+Backtrace for this error:
+
+Program received signal SIGBUS: Access to an undefined portion of a memory object.
+
+Backtrace for this error:
+
+Program received signal SIGBUS: Access to an undefined portion of a memory object.
+
+Backtrace for this error:
+#0  0x153aae3f1d6f in ???
+#1  0x103b966 in __m_io_screening_MOD_read_screening
+	at ../../../src/62_iowfdenpot/m_io_screening.F90:1627
+#2  0xb6940a in __m_screening_MOD_mkdump_er
+	at ../../../src/70_gw/m_screening.F90:906
+#3  0x4cddbe in __m_sigma_driver_MOD_sigma
+	at ../../../src/95_drive/m_sigma_driver.F90:1870
+#4  0x4206af in __m_driver_MOD_driver
+	at ../../../src/95_drive/m_driver.F90:786
+#5  0x40e002 in abinit
+	at ../../../src/98_main/abinit.F90:399
+#6  0x409f1c in main
+	at ../../../src/98_main/abinit.F90:76
+#0  0x1544135e0d6f in ???
+#1  0x103b9de in __m_io_screening_MOD_read_screening
+	at ../../../src/62_iowfdenpot/m_io_screening.F90:1627
+#2  0xb6940a in __m_screening_MOD_mkdump_er
+	at ../../../src/70_gw/m_screening.F90:906
+#3  0x4cddbe in __m_sigma_driver_MOD_sigma
+	at ../../../src/95_drive/m_sigma_driver.F90:1870
+#4  0x4206af in __m_driver_MOD_driver
+	at ../../../src/95_drive/m_driver.F90:786
+#5  0x40e002 in abinit
+	at ../../../src/98_main/abinit.F90:399
+#6  0x409f1c in main
+	at ../../../src/98_main/abinit.F90:76
+srun: error: nid001718: task 73: Bus error
+srun: launch/slurm: _step_signal: Terminating StepId=2916432.0
+slurmstepd: error: *** STEP 2916432.0 ON nid001718 CANCELLED AT 2023-02-16T23:16:26 ***
+srun: error: nid001718: tasks 0-72,74-127: Terminated
+srun: error: nid001736: tasks 128-157,159-255: Terminated
+srun: error: nid001736: task 158: Bus error (core dumped)
+srun: Force Terminated StepId=2916432.0

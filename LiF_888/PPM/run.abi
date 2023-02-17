@@ -1,0 +1,44 @@
+# AC calculation
+indata_prefix "../indata_ac"
+outdata_prefix "outdata_ac"
+
+pseudos "../Li.psp8, ../F.psp8"
+include "../globals"
+
+ndtset  2
+nband   480
+
+#gwcalctyp 1       # AC
+#nfreqim  12      # This is equal to gwr_ntau
+#nomegasi  12
+#omegasimax 50 eV
+
+ecuteps    12.0
+ecutsigx   40.0
+
+getwfk_filepath "../outdata_gs_DS2_WFK"
+
+
+############
+# Dataset 1
+############
+# Calculation of the screening (epsilon^-1 matrix)
+optdriver1  3     # chi
+#inclvkb1 0
+#prtsuscep1
+
+############
+# Dataset 2
+############
+optdriver2  4     # chi
+getscr2 -1
+
+#gw_qprange 4
+nkptgw      2       # number of k-point where to calculate the GW correction
+kptgw               # k-points in reduced coordinates
+   0.000  0.000    0.000
+   0.5    0.500    0.000  # X
+   #0.5    0.000    0.000
+bdgw
+1 8
+1 8
