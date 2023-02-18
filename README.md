@@ -44,7 +44,7 @@ This is what I get for LiF if I don't rescale
 ```
 
 
-![alt text](https://github.com/gmatteo/minimax_paper/blob/main/DATA_RPA/Bn.png)
+![alt text](https://github.com/gmatteo/minimax_paper/blob/main/DATA_RPA/BN.png)
 ![alt text](https://github.com/gmatteo/minimax_paper/blob/main/DATA_RPA/C.png)
 ![alt text](https://github.com/gmatteo/minimax_paper/blob/main/DATA_RPA/GaAs.png)
 ![alt text](https://github.com/gmatteo/minimax_paper/blob/main/DATA_RPA/LiF.png)
