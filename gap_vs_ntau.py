@@ -12,6 +12,7 @@ from abipy.tools.plotting import get_axarray_fig_plt
 sns.set_theme(style="darkgrid")
 
 def gaps_vs_ntau(filepath):
+
     def get_doc():
         buf = []
         while lines:
@@ -57,30 +58,37 @@ def gaps_vs_ntau(filepath):
     df = pd.DataFrame(dict_list)
     eratio = df["eratio"][0]
     label = f"system: {system}, eratio: {eratio:.2f}"
-
-    print(df[["ntau", "Gamma_qp_gap", "X_qp_gap",] +
-             [k for k in keys if "_err" in k]
-            ])
-
-    #ax_mat, fig, plt = get_axarray_fig_plt(None, nrows=1, ncols=2,
-    #                                       sharex=True, sharey=False, squeeze=False)
-
-    #for irow, y in enumerate(("Gamma_qp_gap", "X_qp_gap")):
-    #    ax = ax_mat[0, irow]
-    #    kpt = y.split("_")[0]
-    #    df.plot.scatter(x='ntau', y=y, c="cosft_duality_error", colormap='viridis', title=f"kpt: {kpt}, {label}", ax=ax)
-    #plt.show()
-
     return df, label
 
-    #sns.lineplot(x="ntau", y="Gamma_qp_gap", data=df)
+
+def plot_tau_convergence(filepath):
+    df, label = gaps_vs_ntau(filepath)
+
+    print(df[["ntau", "Gamma_qp_gap", "X_qp_gap",] +
+             [k for k in df if "_err" in k]
+            ])
+
+    system = df["system"][0]
+
+    if True:
+        ax_mat, fig, plt = get_axarray_fig_plt(None, nrows=1, ncols=2, sharex=True, sharey=False, squeeze=False)
+        for irow, y in enumerate(("Gamma_qp_gap", "X_qp_gap")):
+            ax = ax_mat[0, irow]
+            kpt = y.split("_")[0]
+            df.plot.scatter(x='ntau', y=y, c="cosft_duality_error",
+                            colormap='viridis', title=f"kpt: {kpt}, {label}", ax=ax)
+        plt.tight_layout()
+        fig.savefig(f"{system}.png")
+        plt.show()
+        #sns.lineplot(x="ntau", y="Gamma_qp_gap", data=df)
+
 
 
 if __name__ == "__main__":
 
-    #filepath = os.path.abspath(sys.argv[1])
-    #gaps_vs_ntau(filepath)
-    #sys.exit(0)
+    filepath = os.path.abspath(sys.argv[1])
+    plot_tau_convergence(filepath)
+    sys.exit(0)
 
     # Get all directories with output data.
     all_dirs = [p for p in os.listdir(".") if p.endswith("_888")]
@@ -96,26 +104,23 @@ if __name__ == "__main__":
     #    df_list.append(gaps_gwr_ac_ppm_df(d))
     #    df = pd.concat(df_list)
 
-    """
     fontsize = 8
     ncols = 2
-    ax_mat, fig, plt = get_axarray_fig_plt(None, nrows=len(df_list), ncols=1,
-                                            sharex=True, sharey=False, squeeze=False)
+    ax_mat, fig, plt = get_axarray_fig_plt(None, nrows=len(df_list), ncols=ncols,
+                                           sharex=True, sharey=False, squeeze=False)
 
-    for irow, (df, info) in enumerate(zip(df_list, info)):
+    for irow, (df, info) in enumerate(zip(df_list, info_list)):
         for icol, y in enumerate(("Gamma_qp_gap", "X_qp_gap")):
             kpt = y.split("_")[0]
-            if icol > 0: continue
+            if icol > 0 and ncols > 1: continue
             ax = ax_mat[irow, icol]
-            df.plot.scatter(x='ntau', y=y, c="cosft_duality_error", colormap='viridis', label=f"{info}", ax=ax)
+            #df.plot.scatter(x='ntau', y=y, c="cosft_duality_error", colormap='viridis', label=f"{info}", ax=ax)
+            df.plot.scatter(x='ntau', y=y, colormap='viridis', label=f"{info}", ax=ax)
             ax.set_xlabel("ntau", fontsize=fontsize)
             ax.set_ylabel("", fontsize=fontsize)
             #set_visible(ax, False, "xlabel")
-    """
 
-
-    df = pd.concat(df_list)
-    #print(df)
-    sns.lineplot(x="ntau", y="Gamma_qp_gap", data=df, hue="system")
+    #df = pd.concat(df_list)
+    #sns.lineplot(x="ntau", y="Gamma_qp_gap", data=df, hue="system")
     plt.show()
 
