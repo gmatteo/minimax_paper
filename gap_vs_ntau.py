@@ -86,9 +86,9 @@ def plot_tau_convergence(filepath):
 
 if __name__ == "__main__":
 
-    filepath = os.path.abspath(sys.argv[1])
-    plot_tau_convergence(filepath)
-    sys.exit(0)
+    #filepath = os.path.abspath(sys.argv[1])
+    #plot_tau_convergence(filepath)
+    #sys.exit(0)
 
     # Get all directories with output data.
     all_dirs = [p for p in os.listdir(".") if p.endswith("_888")]
@@ -98,7 +98,9 @@ if __name__ == "__main__":
         df, info = gaps_vs_ntau(os.path.join(d, "GWR", "run.abo"))
         df_list.append(df)
         info_list.append(info)
-        #df.to_excel("foo.xlsx")
+        system = df["system"][0]
+        df.to_excel(f"{system}.xlsx")
+    sys.exit(0)
 
     #for d in all_dirs:
     #    df_list.append(gaps_gwr_ac_ppm_df(d))

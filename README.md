@@ -1,12 +1,5 @@
-Running new minimax mesh for:
-
-Si
-Bn
-C
-GaAs
-LiF
-MgO
-SiC
+Convergence of the QP direct gaps at Gamma and X with the number of points in the minimax mesh.
+The color of each point is proportional to the duality error `Max_{ij} |CT CT^{-1} - I|`.
 
 
 ![alt text](https://github.com/gmatteo/minimax_paper/blob/main/Bn.png)
