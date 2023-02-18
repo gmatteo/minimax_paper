@@ -147,6 +147,7 @@ if __name__ == "__main__":
     all_dirs = [p for p in os.listdir(".") if p.endswith("_888")]
 
     task = "GWR_ntau"
+    task = "RPA_ntau"
     df_list, info_list = [], []
 
     if task ==  "RPA_ntau":
