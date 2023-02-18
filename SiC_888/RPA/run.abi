@@ -1,0 +1,57 @@
+# GWR calculation
+indata_prefix "../indata_gs"
+outdata_prefix "outdata_gwr"
+
+pseudos "../C.psp8, ../Si.psp8"
+include "../globals"
+
+#ndtset  1
+#nband   300
+nband   480
+
+############
+# Dataset 1
+############
+optdriver  6        # GWR
+gwr_task "RPA_ENERGY"
+getden_filepath "../outdata_gs_DS1_DEN"
+getwfk_filepath "../outdata_gs_DS2_WFK"
+#inclvkb  0
+#gwr_ntau 16
+
+ndtset 15
+gwr_ntau: 6 gwr_ntau+ 2
+
+#ndtset 5
+#gwr_ntau: 26 gwr_ntau+ 2
+
+#gwr_np_kgts  4   8    16    1
+#gwr_ucsc_batch 4 4
+gwr_np_kgts  4 64 2 1
+gwr_ucsc_batch 4 4
+#gwr_np_kgts  1   32    8    1
+#gwr_ucsc_batch 16 16
+
+# chi with convolutions
+#gwr_chi_algo 2 symchi 1
+# sigma with convolutions
+gwr_sigma_algo 2 symsigma 1
+
+ecuteps    12.0
+ecutsigx   40.0
+
+#gwr_boxcutmin  1.0
+#gwr_boxcutmin  1.5
+#gwr_boxcutmin  1.8
+#gwr_np_gtks3 2 1 1 1  # << G-para with 2 procs
+#gw_icutcoul 3   # Crystal
+
+#gw_qprange 4
+nkptgw      2       # number of k-point where to calculate the GW correction
+kptgw               # k-points in reduced coordinates
+   0.000  0.000    0.000
+   0.5    0.500    0.000  # X
+   #0.5    0.000    0.000
+bdgw
+1 8
+1 8
