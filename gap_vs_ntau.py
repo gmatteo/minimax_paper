@@ -63,7 +63,7 @@ def gwr_gaps_vs_ntau(filepath: str):
 
     df = pd.DataFrame(dict_list)
     eratio = df["eratio"][0]
-    label = f"system: {system}, eratio: {eratio:.2f}"
+    label = f"{system}, eratio: {eratio:.2f}"
     return df, label
 
 
@@ -135,7 +135,7 @@ def rpa_vs_ntau(filepath: str):
 
     df = pd.DataFrame(dict_list)
     eratio = df["eratio"][0]
-    label = f"system: {system}, eratio: {eratio:.2f}"
+    label = f"{system}, eratio: {eratio:.2f}"
 
     print(df[["ntau", "rpa_ec_ev",] +
              [k for k in df if "_err" in k]
@@ -156,8 +156,9 @@ if __name__ == "__main__":
     all_dirs = [p for p in os.listdir(".") if p.endswith("_888")]
 
     task = "GWR_ntau"
-    task = "RPA_ntau"
+    #task = "RPA_ntau"
     df_list, info_list = [], []
+    print("Executing task", task)
 
     if task ==  "RPA_ntau":
         for d in all_dirs:
@@ -187,25 +188,41 @@ if __name__ == "__main__":
             df_list.append(gwr_df)
             info_list.append(gwr_info)
             system = gwr_df["system"][0]
+            eratio = gwr_df["eratio"][0]
+            label = f"{system}, eratio: {eratio:.2f}"
             #gwr_df.to_excel(os.path.join("DATA_GWR", f"{system}.xlsx")
 
-    sys.exit(0)
-    ncols = 2
-    ax_mat, fig, plt = get_axarray_fig_plt(None, nrows=len(df_list), ncols=ncols,
-                                           sharex=True, sharey=False, squeeze=False)
+            ax_mat, fig, plt = get_axarray_fig_plt(None, nrows=1, ncols=2, sharex=True, sharey=False, squeeze=False)
+            for irow, y in enumerate(("Gamma_qp_gap", "X_qp_gap")):
+                ax = ax_mat[0, irow]
+                kpt = y.split("_")[0]
+                gwr_df.plot.scatter(x='ntau', y=y, c="cosft_duality_error",
+                                   colormap='viridis', title=f"kpt: {kpt}", ax=ax)
 
-    for irow, (df, info) in enumerate(zip(df_list, info_list)):
-        for icol, y in enumerate(("Gamma_qp_gap", "X_qp_gap")):
-            kpt = y.split("_")[0]
-            if icol > 0 and ncols > 1: continue
-            ax = ax_mat[irow, icol]
-            #df.plot.scatter(x='ntau', y=y, c="cosft_duality_error", colormap='viridis', label=f"{info}", ax=ax)
-            df.plot.scatter(x='ntau', y=y, colormap='viridis', label=f"{info}", ax=ax)
-            ax.set_xlabel("ntau", fontsize=fontsize)
-            ax.set_ylabel("", fontsize=fontsize)
-            #set_visible(ax, False, "xlabel")
+            fig.suptitle(label)
+            plt.tight_layout()
+            fig.savefig(os.path.join("DATA_GWR", f"{system}.png"))
+            #plt.show()
+            #sns.lineplot(x="ntau", y="Gamma_qp_gap", data=df)
+
+
+    #sys.exit(0)
+    #ncols = 2
+    #ax_mat, fig, plt = get_axarray_fig_plt(None, nrows=len(df_list), ncols=ncols,
+    #                                       sharex=True, sharey=False, squeeze=False)
+
+    #for irow, (df, info) in enumerate(zip(df_list, info_list)):
+    #    for icol, y in enumerate(("Gamma_qp_gap", "X_qp_gap")):
+    #        kpt = y.split("_")[0]
+    #        if icol > 0 and ncols > 1: continue
+    #        ax = ax_mat[irow, icol]
+    #        #df.plot.scatter(x='ntau', y=y, c="cosft_duality_error", colormap='viridis', label=f"{info}", ax=ax)
+    #        df.plot.scatter(x='ntau', y=y, colormap='viridis', label=f"{info}", ax=ax)
+    #        ax.set_xlabel("ntau", fontsize=fontsize)
+    #        ax.set_ylabel("", fontsize=fontsize)
+    #        #set_visible(ax, False, "xlabel")
 
     #df = pd.concat(df_list)
     #sns.lineplot(x="ntau", y="Gamma_qp_gap", data=df, hue="system")
-    plt.show()
+    #plt.show()
 
